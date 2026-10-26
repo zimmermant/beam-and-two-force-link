@@ -1,0 +1,31 @@
+/* The display page: the four diagrams and nothing else.
+   -------------------------------------------------------------------------------------------------
+   No sliders and no reading panel, so the figure takes the whole window instead of a 740 px column.
+   It is sized to FIT, not to fill: the svg keeps its viewBox's aspect ratio (preserveAspectRatio
+   defaults to "meet"), so it is as large as the window allows and centred in whatever is left over.
+   That is why the page can never scroll at any window size, and why the figure is bigger here than on
+   the main page -- at 800 x 750 it is about 784 px wide against 740, and at 1280 x 720 the height
+   becomes the limit and it is about 1075 px wide.
+   src/interact.js already reads that same letterboxing when it turns a pointer position into viewBox
+   units, so dragging lands in the right place whichever way round the window is. */
+body.display {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;              /* the figure is sized to fit; nothing should ever scroll */
+}
+.stage {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+}
+/* The "From the link" note, shown only when a link set something. It takes a line off the figure
+   while it is there, which the figure simply shrinks to accommodate. */
+body.display #from-link { flex: 0 0 auto; margin: 0 0 4px; font-size: 13px; line-height: 1.3; color: #744210; }
+body.display #from-link[hidden] { display: none; }
+/* An absolutely positioned svg inside a relative box: a flex child sizing an svg by its own aspect
+   ratio is unreliable across browsers, and this is not. */
+.fig-fill { flex: 1 1 auto; position: relative; min-height: 0; min-width: 0; }
+body.display #fig { position: absolute; inset: 0; width: 100%; height: 100%; }

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beam on a pin and a two-force link</title>
+<!--INLINE_CSS-->
+</head>
+<body>
+<main class="page">
+<h1>Beam on a pin and a two-force link</h1>
+<div class="fig-col" id="stage">
+<svg id="fig" viewBox="0 0 960 616" role="img" aria-label="A horizontal beam from a pin support at A to a joint at C, held by a link running up and to the right from C to a wall pin at D on a three-four-five slope, with a load at B that you can drag. Below it the same beam as a free-body diagram, the beam shrunk to a single point, and the three forces drawn tip to tail as a closed polygon."></svg>
+</div>
+<div class="side">
+<section id="controls" class="panel" aria-label="Load controls">
+  <div class="ctl">
+    <div class="ctl-head"><label for="f-slider"><b>Load magnitude</b></label> F<sub>B</sub> = <b id="f-readout" class="readout">50</b>&nbsp;N</div>
+    <div class="zs">
+      <input type="range" id="f-slider" min="0" max="80" step="5" value="50">
+      <div class="zl"><span>0&nbsp;N (no load)</span><span>80&nbsp;N</span></div>
+    </div>
+  </div>
+  <div class="ctl">
+    <div class="ctl-head"><label for="dir-slider"><b>Load direction</b></label> θ = <b id="dir-readout" class="readout">270</b>° (ccw from +x)</div>
+    <div class="zs">
+      <input type="range" id="dir-slider" min="0" max="360" step="5" value="270">
+      <div class="zl"><span>0° (right)</span><span id="dir-mark" class="mark-label" style="left:50%">180° (no link force)</span><span>360°</span></div>
+    </div>
+  </div>
+  <button type="button" id="reset" class="btn">Reset to the defaults</button>
+</section>
+<section class="panel calc-panel">
+  <h2>Reading the diagrams</h2>
+  <p id="from-link" hidden></p>
+  <div id="calc" aria-live="polite"></div>
+  <a id="example-link" class="more" href="?f=70&amp;dir=215">Example link: Load magnitude = 70&nbsp;N, Load direction = 215° (down and to the left)</a>
+</section>
+</div>
+</main>
+<!--INLINE_JS-->
+</body>
+</html>
