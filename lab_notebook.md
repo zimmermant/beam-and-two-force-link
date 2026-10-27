@@ -1,5 +1,62 @@
 # Lab notebook — beam_link_fbd
 
+## 2026-10-26 (later) — published
+
+### Summary
+First publish, on Todd's explicit ask. Public repo **`zimmermant/beam-and-two-force-link`** (MIT,
+Pages from `main` at `/`), live at <https://zimmermant.github.io/beam-and-two-force-link/>, and a
+sixth card on <https://zimmermant.github.io/simulations/>.
+
+| what | where |
+|---|---|
+| working repo (no remote, as the procedure wants) | `788eb0a` |
+| public repo, first commit | `cf09fdd` |
+| site | `e6f89c5` on `zimmermant/zimmermant.github.io` |
+
+### Decisions Todd made
+- **Repo name `beam-and-two-force-link`**, over `beam-pin-and-link` and `beam-link-fbd`. It follows
+  the house pattern of naming the situation rather than the technique, and none of the existing five
+  uses an abbreviation. The name fixes the public URL, so it was his call, not mine.
+- **One card, with a small second link.** The diagrams-only page is the same simulation with the
+  chrome taken off, not a second simulation, so the grid still reads one card per sim. A card is an
+  `<a>` and cannot contain another link, so the card sits in a `.sim-cell` with the quiet
+  "Diagrams only" line underneath it.
+
+### Decisions I made
+- **The card image is the FULL page, not the diagrams-only one.** The diagrams-only capture fills a
+  3:2 frame perfectly and looked better, but every existing card shows the page that card opens, and
+  `distributed-load-beam.png` is likewise a whole-page shot the CSS crops. I rendered both as real
+  cards side by side before choosing. 1200 × 1125, which `object-fit: cover` crops to its top.
+- **Screenshots made with headless Microsoft Edge** (Chromium; no Chrome on this machine), with
+  `--user-data-dir` pointed at the session scratchpad so it never touches Todd's own profile.
+  Rendering straight at 1.5× gives 161 KB; downsampling a 2× capture gave a sharper 280 KB, which is
+  two to four times the other card images, so the direct render won.
+- **The root `index.html` redirect names both pages**, so the fallback paragraph is useful rather
+  than a dead end if the meta refresh does not fire.
+
+### Checks before and after
+Before: working tree clean, `node build.js` left it clean (both dist files byte-identical to the
+commit), 238 tests green, nothing private tracked, no local paths or secrets anywhere in the tree.
+The export was `git archive HEAD` with `docs/` dropped, and the whole tree was re-scanned before the
+repo existed.
+
+After the push, from the live site:
+- Both dist files fetched and `cmp`'d against local: **byte-identical**.
+- `docs/`, `.claude/`, `questions.md`, `CLAUDE.md`: all 404.
+- Harness run **from the live origin** on the full page at 800 × 750: 47 combos, sweep 0, queries 0,
+  sensitivity flagged, budget ok, smallest text 12.3 px.
+- Display page live: `install` ok (`plain: true`), six states checked with `checkFigure` in iframes
+  the size of the window, 0 violations, smallest text 13.1 px, budget ok.
+- The root redirect lands on the full page; the preset `?f=70&dir=215` renders and its note reads
+  "From the link: Load magnitude = 70 N, Load direction = 215°."
+- Site: card, image and both links all 200, and the card renders like its five neighbours.
+
+### Not tried
+Firefox and Safari (Chromium only, via the pane and via headless Edge). No real LMS frame — the
+iframe snippets in the README are written from the budgets, not from a Canvas test. No touch device.
+
+---
+
 ## 2026-10-26 — a second page: the four diagrams on their own
 
 ### Summary
@@ -141,8 +198,8 @@ its own, so a force label that lands beside it reads as naming it. Labels are ke
 New interactive free-body-diagram sandbox for the beam A–C held by a pin at A and a two-force link CD
 on a three-four-five slope. The student drags one load, F⃗_B, and four panels stay consistent: the
 situation, the extended free-body diagram, the point free-body diagram and the tip-to-tail polygon.
-Copied from `~/.claude/skills/building-physics-simulations/kit`, then the physics, figure, panel,
-drag, tests, harness and mutation rows were all replaced.
+Copied from the kit in the `building-physics-simulations` skill, which stays local and is never
+published, then the physics, figure, panel, drag, tests, harness and mutation rows were all replaced.
 
 State: suite green (207 tests), browser harness clean at both viewport budgets, mutation audit all caught.
 
